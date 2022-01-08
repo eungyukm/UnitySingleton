@@ -1,28 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Manager : MonoBehaviour
 {
-    private static Manager instance = null;
+    public static Manager Instance;
 
-    public static Manager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    public UnityAction OnPrint;
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+    }
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-        
+    private void Start()
+    {
+        if(OnPrint != null)
+        {
+            OnPrint();
+        }
+    }
+
+    public void Save()
+    {
+        Debug.Log("Save!!");
     }
 }
